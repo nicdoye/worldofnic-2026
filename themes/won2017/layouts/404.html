@@ -5,7 +5,7 @@
         <!-- <div class="mdl-layout mdl-js-layout"> -->
         {{ partial "header.html" . }}
         {{ partial "header-image.html" . }}
-        {{ range .Data.Pages }}
+        {{ range .Site.Pages }}
             {{ if isset .Params "homecontent" }}
        <section class="mdl-layout__content">
 <h4>Don't let it fool you.</h4>

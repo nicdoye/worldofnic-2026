@@ -1,98 +1,13 @@
-image: publysher/hugo
+image: hugomods/hugo:exts-0.166.0
 
-.deploy-template: &deploy-template
-  type: deploy
-  before_script:
-  - apt-get update
-  - apt-get -qq install python-software-properties curl
-  - curl -sL https://deb.nodesource.com/setup_7.x | bash -
-  - apt-get install nodejs
-  - apt-get install -y build-essential
-  artifacts:
-    paths:
-    - public
+# Deployment is handled by Vercel's own GitLab integration (see vercel.json).
+# This pipeline is just a build sanity check on every push/MR.
 
-
-cache:
-  paths:
-    - node_modules/
-
-# Test Build
 test:
+  stage: test
   script:
-  - hugo
+    - hugo --gc --minify
   artifacts:
     paths:
-    - public
-  environment:
-    name: test
-
-# deploy_to_staging
-staging:
-  <<: *deploy-template
-  stage: deploy
-  script:
-  - hugo
-  - npm install -g firebase-tools
-  - npm install
-  - firebase use --token $FIREBASE_TOKEN staging
-  - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_TOKEN
-  only:
-  - develop
-  environment: 
-    name: staging-was
-    #url: https://staging.worldofnic.org
-
-# deploy_to_production
-production:
-  <<: *deploy-template
-  stage: deploy
-  script:
-  - hugo
-  - npm install -g firebase-tools
-  - npm install
-  - firebase use --token $FIREBASE_TOKEN production
-  - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_TOKEN
-  only:
-  - master
-  environment: 
-    name: production-was
-    url: https://worldofnic.org
-
-
-deploy_staging:
-  environment: staging
-  # image: publysher/hugo
-  # image: python:3.7.0a2-stretch
-  image: centos:7
-  script:
-  - yum -y install yum-plugin-copr
-  - yum -y copr enable daftaupe/hugo
-  - yum -y copr enable pypa/pypa
-  - yum -y install python-pip
-  - yum -y install hugo
-  - hugo
-  - pip install awscli
-  - env | sort
-  - aws s3 cp ./ s3://$S3_BUCKET_NAME/ --recursive --exclude "*" --include "*.css" --include "*.js" --include "*.html" --include "*.ico" --include "*.jpg" --include "*.png" --include "*.txt"
-  only:
-  - develop
-
-deploy_production:
-  environment: production
-  # image: publysher/hugo
-  # image: python:3.7.0a2-stretch
-  image: centos:7
-  script:
-  - yum -y install yum-plugin-copr
-  - yum -y copr enable daftaupe/hugo
-  - yum -y copr enable pypa/pypa
-  - yum -y install python-pip
-  - yum -y install hugo
-  - hugo
-  - pip install awscli
-  - env | sort
-  - aws s3 cp ./ s3://$S3_BUCKET_NAME/ --recursive --exclude "*" --include "*.css" --include "*.js" --include "*.html" --include "*.ico" --include "*.jpg" --include "*.png" --include "*.txt"
-  only:
-  - master
-
+      - public
+    expire_in: 1 day

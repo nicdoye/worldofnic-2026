@@ -1,17 +1,23 @@
 
 ---
 disablePathToLower: true
-languageCode: en-us
-googleAnalytics: UA-34783744-1
+locale: en-us
 relativeURLs: false
 canonifyURLs: false
-baseurl: "https://www.worldofnic.org/"
+baseurl: "https://worldofnic.org/"
 title: "world of nic"
 footnotereturnlinkcontents: "↩"
 disableRSS: true
 disable404: false
 disableSitemap: true
 theme: "won2017"
+disableKinds: ["taxonomy", "term"]
+security:
+  allowContent: ["^text/html$", "^text/markdown$"]
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 params:
   Subtitle: "Tant que je respire, j'attaque"
   AuthorName: "Nicolas Doye"

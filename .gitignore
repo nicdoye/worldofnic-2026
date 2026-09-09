@@ -3,8 +3,11 @@ _builds/
 _projects/
 _steps/
 /public
+/resources/
+.hugo_build.lock
 certbot.log
 .idea/
 node_modules/
 package.json
 yarn.lock
+.vercel
