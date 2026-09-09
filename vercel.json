@@ -1,11 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "hugo --gc --minify",
-  "outputDirectory": "public",
-  "framework": "hugo",
-  "build": {
-    "env": {
-      "HUGO_VERSION": "0.166.0"
-    }
-  }
+  "installCommand": "",
+  "buildCommand": "chmod a+x build.sh && ./build.sh",
+  "outputDirectory": "public"
 }
