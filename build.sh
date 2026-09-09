@@ -101,9 +101,18 @@ main() {
     npm ci
   fi
 
+  # Determine the base URL: production keeps the real domain,
+  # every other environment (preview branches, dev) gets its actual
+  # Vercel deployment URL so links/metadata point somewhere real.
+  if [[ "${VERCEL_ENV:-}" == "production" ]]; then
+    base_url="https://worldofnic.org/"
+  else
+    base_url="https://${VERCEL_URL}/"
+  fi
+
   # Build the project
-  echo "Building the project..."
-  hugo build --gc --minify
+  echo "Building the project with baseURL ${base_url}..."
+  hugo build --gc --minify --baseURL "${base_url}"
 }
 
 main "$@"
