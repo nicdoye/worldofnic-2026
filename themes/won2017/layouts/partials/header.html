@@ -1,34 +1,18 @@
-<!-- Uses a header that scrolls with the text, rather than staying
-  locked at the top -->
-
-<!-- Always shows a header, even in smaller screens. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title"><a class="mdl-layout__title-link" href="/">{{ .Site.Title }}</a></span>
-
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <!-- Navigation -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-
-          <a class="mdl-navigation__link" href="/">HOME</a>
-          <a class="mdl-navigation__link" href="/about/">ABOUT</a>
-          <a class="mdl-navigation__link" href="/geekery/">GEEKERY/OPEN SOURCE</a>
-          <a class="mdl-navigation__link" href="/research/">RESEARCH</a>
-
-      </nav>
-    </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">{{ .Site.Title }}</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="/">Home</a>
-      <a class="mdl-navigation__link" href="/about/">About</a>
-      <a class="mdl-navigation__link" href="/geekery/">Geekery/Open Source</a>
-      <a class="mdl-navigation__link" href="/research/">Research</a>
-    </nav>
+<header id="header">
+  <div class="logo">
+    <i class="fas fa-cubes" style="font-size:2rem"></i>
   </div>
-</div>
+  <div class="content">
+    <div class="inner">
+      <h1>Nic Doye</h1>
+      <p>Person of UNIX descent</p>
+    </div>
+  </div>
+  <nav>
+    <ul>
+      {{ range (where site.Pages "Params.panel" "!=" nil).ByWeight }}
+      <li><a href="#{{ .Params.panel }}" data-panel="{{ .Params.panel }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+  </nav>
+</header>

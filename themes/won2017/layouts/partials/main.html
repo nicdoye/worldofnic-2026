@@ -1,0 +1,10 @@
+<div id="main">
+  {{ range (where site.Pages "Params.panel" "!=" nil).ByWeight }}
+  <article id="{{ .Params.panel }}" data-panel="{{ .Params.panel }}" style="display:none">
+    <h2 class="major">{{ .Title }}</h2>
+    {{ with .Params.image }}<span class="image main"><img src="{{ . }}" alt=""></span>{{ end }}
+    {{ .Content }}
+    <div class="close"></div>
+  </article>
+  {{ end }}
+</div>

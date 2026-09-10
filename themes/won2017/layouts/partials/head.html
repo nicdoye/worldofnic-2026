@@ -16,17 +16,21 @@
   <meta charset='utf-8'>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'> {{ hugo.Generator }}
   <meta content='1A3E7EF1BF62027B28C67EA4B9D0EB6B' name='msvalidate.01'>
+  <meta name="description" content="Personal Web Site">
+  <meta name="keywords" content="Nicolas, Nic, Doye">
 
-  <!-- Material Design Lite https://getmdl.io/started/index.html -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-teal.min.css">
-  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-
-  <!-- FONTAWESOME 5.0 Pro -->
+  <!-- FONTAWESOME 5 Pro -->
   <script defer src="/fontawesome/fontawesome-all.min.js"></script>
-  <!-- CUSTOM STYLE CSS -->
-  <link href='/css/style.css' rel='stylesheet' type='text/css'>
+
   <!-- GOOGLE FONT -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600" type="text/css">
+
+  {{- $opts := dict "transpiler" "dartsass" "targetPath" "css/style.css" "outputStyle" "compressed" }}
+  {{- $style := resources.Get "scss/main.scss" | css.Sass $opts }}
+  {{- if hugo.IsProduction }}
+    {{- $style = $style | fingerprint }}
+  {{- end }}
+  <link href='{{ $style.RelPermalink }}' rel='stylesheet' type='text/css'{{ with $style.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+
   <title>{{ .Site.Title }}</title>
 </head>
