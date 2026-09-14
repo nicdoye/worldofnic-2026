@@ -1,18 +1,4 @@
 <head>
-  <!--  Based on
-    https://stackoverflow.com/questions/4723213/detect-http-or-https-then-force-https-in-javascript
-    and
-    https://developer.mozilla.org/en-US/docs/Web/API/Location
-  -->
-  <script>
-    if (window.location.protocol != "https:" && window.location.hostname.split('.')[0] == 'www')
-      window.location.href = "https:" +
-      "//" +
-      window.location.hostname +
-      window.location.pathname +
-      window.location.search +
-      window.location.hash;
-  </script>
   <meta charset='utf-8'>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'> {{ hugo.Generator }}
   <meta content='1A3E7EF1BF62027B28C67EA4B9D0EB6B' name='msvalidate.01'>
@@ -31,6 +17,11 @@
     {{- $style = $style | fingerprint }}
   {{- end }}
   <link href='{{ $style.RelPermalink }}' rel='stylesheet' type='text/css'{{ with $style.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+
+  <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+  <link rel=icon type=image/png href=/favicon-32x32.png sizes=32x32>
+  <link rel=icon type=image/png href=/favicon-16x16.png sizes=16x16>
+  <link rel=mask-icon href=/safari-pinned-tab.svg color=#0594cb>
 
   <title>{{ .Site.Title }}</title>
 </head>
